@@ -66,5 +66,33 @@ namespace MoodAnalyzerTestCases
                 Assert.AreEqual("HAPPY", mood.Is_Happy);
             }
         }
+        [Test]
+        public void GiveMessage_WhenNull_UsingCustomException_shouldReturnNullMood()
+        {
+
+            moodanalyzer = new Moodanalyzer();
+            try
+            {
+                string Message = moodanalyzer.AnalyseMood();
+            }
+            catch (MoodAnalyserException exception)
+            {
+                Assert.AreEqual(MoodAnalyserException.ExceptionType.NULL_MOOD, exception.exceptionType);
+            }
+        }
+        [Test]
+        public void GiveMessage_WhenEmpty_UsingCustomException_shouldReturnEmptyMood()
+        {
+
+            moodanalyzer = new Moodanalyzer("");
+            try
+            {
+                string Message = moodanalyzer.AnalyseMood();
+            }
+            catch (MoodAnalyserException exception)
+            {
+                Assert.AreEqual(MoodAnalyserException.ExceptionType.EMPTY_MOOD, exception.exceptionType);
+            }
+        }
     }
 }
