@@ -34,8 +34,37 @@ namespace MoodAnalyzer
             else
                 throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_CONSTRUCTOR, "No Constructor is Present");
         }
+        public static object CreateMoodAnalyserUsingParametrisedConstructor(string className, string constructorName)
+        {
+            Type type = typeof(Moodanalyzer);
+            if (type.Name.Equals(className) || type.FullName.Equals(className))
+            {
+                try
+                {
+                    if (type.Name.Equals(constructorName))
+                    {
+                        ConstructorInfo constructorInfo = type.GetConstructor(new[] { typeof(string) });
+                        object instance = constructorInfo.Invoke(new object[] { "Happy" });
+                        return instance;
+                    }
+                    else
+                    {
+                        throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_CONSTRUCTOR, "No Constructor is Present");
+                    }
+                }
+                catch (ArgumentNullException e)
+                {
+                    throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_CONSTRUCTOR, "No Constructor is Present");
+                }
+            }
+            else
+            {
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_CLASS_FOUND, "No Class Name is Present");
+            }
 
-       
+        }
+
+
     }
 }
 
