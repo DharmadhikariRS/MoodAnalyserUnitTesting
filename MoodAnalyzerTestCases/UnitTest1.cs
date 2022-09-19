@@ -94,5 +94,50 @@ namespace MoodAnalyzerTestCases
                 Assert.AreEqual(MoodAnalyserException.ExceptionType.EMPTY_MOOD, exception.exceptionType);
             }
         }
+        /// <summary>
+        /// UC4
+        /// </summary>
+
+        [Test]
+        public void Using_Reflection_Given_ClassName_Return_Object()
+        {
+            moodanalyzer = new Moodanalyzer();
+            string ClassName = "MoodAnalyzer.Moodanalyzer";
+            object obj = MoodAnalyserFactory.CreateMoodAnalyser(ClassName, "Moodanalyzer");
+            obj.Equals(moodanalyzer);
+        }
+        [Test]
+        public void Using_Reflection_Given_Improper_ClassName_Return_No_Class_Found()
+        {
+            try
+            {
+                moodanalyzer = new Moodanalyzer();
+                string ClassName = "MoodAnalyzr.moodAnalyzr";
+                object obj = MoodAnalyserFactory.CreateMoodAnalyser(ClassName, "moodAnalyzr");
+                obj.Equals(moodanalyzer);
+            }
+            catch (MoodAnalyserException exception)
+            {
+                Assert.AreEqual(exception.exceptionType, MoodAnalyserException.ExceptionType.NO_CLASS_FOUND);
+            }
+
+        }
+        [Test]
+        public void Using_Reflection_Given_Improper_Constructor_Name_Return_No_Constructor_Found()
+        {
+            try
+            {
+                moodanalyzer = new Moodanalyzer();
+                string ClassName = "MoodAnalyzer.Moodanalyze";
+                object obj = MoodAnalyserFactory.CreateMoodAnalyser(ClassName, "Moodanalyer");
+                obj.Equals(moodanalyzer);
+            }
+            catch (MoodAnalyserException exception)
+            {
+                Assert.AreEqual(exception.exceptionType, MoodAnalyserException.ExceptionType.NO_CONSTRUCTOR);
+            }
+
+        }
+
     }
 }

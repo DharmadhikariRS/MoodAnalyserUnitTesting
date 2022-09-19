@@ -12,6 +12,8 @@ namespace MoodAnalyzer
         {
             EMPTY_MOOD,
             NULL_MOOD,
+            NO_CLASS_FOUND,
+            NO_CONSTRUCTOR,
         }
         public ExceptionType exceptionType;
 
